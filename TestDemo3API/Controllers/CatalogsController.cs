@@ -15,9 +15,9 @@ namespace TestDemo3API.Controllers
     {
         private readonly QuanLySanPhamContext _context;
 
-        public CatalogsController(QuanLySanPhamContext context)
+        public CatalogsController()
         {
-            _context = context;
+            _context = new QuanLySanPhamContext();
         }
 
         // GET: api/Catalogs

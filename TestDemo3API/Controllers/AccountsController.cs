@@ -15,13 +15,12 @@ namespace TestDemo3API.Controllers
     {
         private readonly QuanLySanPhamContext _context;
 
-        public AccountsController(QuanLySanPhamContext context)
+        public AccountsController()
         {
-            _context = context;
+            _context = new QuanLySanPhamContext();
         }
-
-        // GET: api/Accounts
-        [HttpGet]
+            // GET: api/Accounts
+            [HttpGet]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
             return await _context.Accounts.ToListAsync();

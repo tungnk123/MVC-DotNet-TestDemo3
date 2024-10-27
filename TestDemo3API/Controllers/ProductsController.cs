@@ -15,17 +15,11 @@ namespace TestDemo3API.Controllers
     {
         private readonly QuanLySanPhamContext _context;
 
-        public ProductsController(QuanLySanPhamContext context)
+        public ProductsController()
         {
-            _context = context;
+            _context = new QuanLySanPhamContext();
         }
 
-        // GET: api/Products
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        {
-            return await _context.Products.ToListAsync();
-        }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
@@ -40,6 +34,7 @@ namespace TestDemo3API.Controllers
 
             return product;
         }
+
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -98,6 +93,21 @@ namespace TestDemo3API.Controllers
 
             return NoContent();
         }
+
+        // Add the following action to the ProductsController class
+
+        // GET: api/Products
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] int? catalogId)
+        {
+            var products = catalogId.HasValue
+                ? await _context.Products.Where(p => p.CatalogId == catalogId.Value).ToListAsync()
+                : await _context.Products.ToListAsync();
+
+            return products;
+        }
+
+
 
         private bool ProductExists(int id)
         {
